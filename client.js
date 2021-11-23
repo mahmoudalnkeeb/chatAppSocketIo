@@ -124,7 +124,7 @@ function sendMessage(message) {
   chat.append(messageElement);
   setTimeout(() => {
     const messages = document.querySelectorAll("#chat div");
-    console.log(messages[messages.length - 1]);
+    // console.log(messages[messages.length - 1]);
     const lastMessage = messages[messages.length - 1];
     const viewNew = lastMessage.offsetTop;
     chat.scroll({
