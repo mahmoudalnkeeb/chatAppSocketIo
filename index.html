@@ -162,6 +162,15 @@
 
         .chating {
           height: calc(100% - 60px);
+          overflow-y: scroll;
+        }
+        .chating::-webkit-scrollbar {
+          display: none;
+        }
+
+        .chating {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
         #message {
           height: 60px;
