@@ -28,8 +28,10 @@ const usersList = document.getElementById("users");
 //   console.log(activeUsers);
 // }
 
+const uid = document.getElementById("uid");
+
 const user = prompt("enter you username");
-joinMessage("you joined the chat ");
+uid.innerText = user;
 socket.emit("new-user", user);
 
 //if user found in dataBases then alert to conect
@@ -40,11 +42,13 @@ socket.emit("new-user", user);
 messageInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     const message = messageInput.value;
-    console.log(message);
+
     if (message === "") {
       messageInput.placeholder = "enter message to send";
+      messageInput.style.outlineColor = "#e74c3c";
       setInterval(() => {
         messageInput.placeholder = "type your message";
+        messageInput.style.outlineColor = "transparent";
       }, 1000);
     } else {
       socket.emit("send-chat-message", message);
@@ -138,7 +142,7 @@ function sendMessage(message) {
 function receiveMessage(m, n) {
   const messageElement = document.createElement("div");
   messageElement.setAttribute("class", "msg-row received");
-  messageElement.innerHTML = `<div class="msg-text"><h3 class="name-text" id="received">${n}</h2><p>${m}<p></div>`;
+  messageElement.innerHTML = `<div class="msg-text"><h3 class="name-text" id="received">${n}</h2><p>${m}</p></div>`;
   chat.append(messageElement);
   setTimeout(() => {
     const messages = document.querySelectorAll("#chat div");
