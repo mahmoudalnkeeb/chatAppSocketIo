@@ -14,9 +14,14 @@
         box-sizing: border-box;
         font-family: "Poppins", sans-serif;
       }
+      body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
       .container {
         width: 100%;
-        height: 100vh;
+        height: 100%;
         background-color: #0093e9;
         background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
         display: flex;
@@ -25,6 +30,7 @@
       }
       .chatbox {
         background: #0093e9;
+        margin-top: -40px;
         width: 70%;
         height: 90%;
         min-width: 250px;
@@ -62,7 +68,7 @@
         display: flex;
         align-items: center;
         width: fit-content;
-        max-width: 35ch;
+        max-width: 30ch;
         margin-block: 20px;
       }
       .received {
@@ -153,6 +159,13 @@
           flex-direction: column-reverse;
           border-radius: 20px;
         }
+
+        .chating {
+          height: 95%;
+        }
+        #message {
+          height: 5%;
+        }
         .col-2 {
           width: 100%;
           max-height: 20%;
@@ -166,18 +179,18 @@
           gap: 50px;
           overflow-x: scroll;
         }
-         .col-2 ul::-webkit-scrollbar {
-        display: none;
+        .col-2 ul::-webkit-scrollbar {
+          display: none;
         }
 
-          .col-2 ul {
-         -ms-overflow-style: none;
-         scrollbar-width: none;
-          }
-          .col-2 ul li {
-           margin: 0;
-           position: relative;
-         }
+        .col-2 ul {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .col-2 ul li {
+          margin: 0;
+          position: relative;
+        }
         .col-2 ul li::before {
           position: absolute;
           margin: 0;
@@ -204,35 +217,7 @@
     <div class="container">
       <div class="chatbox">
         <div class="col-1">
-          <div class="chating" id="chat">
-
-            <div class="msg-row sent">
-            <div class="msg-text">
-              
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad
-                porro assumenda nemo ipsa dicta earum? Ut facilis delectus sed!
-                Doloribus nisi cupiditate, esse consectetur quia veritatis illum
-                culpa voluptatum ipsum.
-              </p>
-            </div>
-        </div>
-
-
-
-        <div class="msg-row received">
-            <div class="msg-text">
-              <h3 class="name-text" id="received">mahmoud alnakeeb</h2>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad
-                porro assumenda nemo ipsa dicta earum? Ut facilis delectus sed!
-                Doloribus nisi cupiditate, esse consectetur quia veritatis illum
-                culpa voluptatum ipsum.
-              </p>
-            </div>
-        </div>
-
-          </div>
+          <div class="chating" id="chat"></div>
 
           <input
             type="text"
