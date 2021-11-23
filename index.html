@@ -85,9 +85,9 @@
         padding: 0 40px;
       }
       .msg-text h3 {
-        font-weight: 300;
-        font-size: 20px;
-        padding: 10px 20px;
+        font-weight: 600;
+        font-size: 16px;
+        padding: 2px 0px;
         margin-bottom: 10px;
         text-align: center;
         background-color: #eee;
@@ -150,12 +150,13 @@
         .chatbox {
           width: 90%;
           height: 90%;
-          flex-direction: column;
+          flex-direction: column-reverse;
           border-radius: 20px;
         }
         .col-2 {
           width: 100%;
           max-height: 20%;
+          transform: scale(0);
         }
         .col-2 h3 {
           margin-top: 0;
@@ -163,12 +164,20 @@
         .col-2 ul {
           display: flex;
           gap: 50px;
-          overflow-y: scroll;
+          overflow-x: scroll;
         }
-        .col-2 ul li {
-          margin: 0;
-          position: relative;
+         .col-2 ul::-webkit-scrollbar {
+        display: none;
         }
+
+          .col-2 ul {
+         -ms-overflow-style: none;
+         scrollbar-width: none;
+          }
+          .col-2 ul li {
+           margin: 0;
+           position: relative;
+         }
         .col-2 ul li::before {
           position: absolute;
           margin: 0;
@@ -195,7 +204,35 @@
     <div class="container">
       <div class="chatbox">
         <div class="col-1">
-          <div class="chating" id="chat"></div>
+          <div class="chating" id="chat">
+
+            <div class="msg-row sent">
+            <div class="msg-text">
+              
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad
+                porro assumenda nemo ipsa dicta earum? Ut facilis delectus sed!
+                Doloribus nisi cupiditate, esse consectetur quia veritatis illum
+                culpa voluptatum ipsum.
+              </p>
+            </div>
+        </div>
+
+
+
+        <div class="msg-row received">
+            <div class="msg-text">
+              <h3 class="name-text" id="received">mahmoud alnakeeb</h2>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad
+                porro assumenda nemo ipsa dicta earum? Ut facilis delectus sed!
+                Doloribus nisi cupiditate, esse consectetur quia veritatis illum
+                culpa voluptatum ipsum.
+              </p>
+            </div>
+        </div>
+
+          </div>
 
           <input
             type="text"
