@@ -5,28 +5,6 @@ const socket = io("https://gl-chat.herokuapp.com/", {
 const messageInput = document.getElementById("message");
 const chat = document.getElementById("chat");
 const usersList = document.getElementById("users");
-// const activeUsers = ["mahmoud", "ayman"];
-// if (activeUsers.includes(name)) {
-//   console.log("connected");
-//   console.log(activeUsers);
-//   joinMessage("you joined the chat ");
-//   socket.emit("new-user", name);
-// } else {
-//   const name = prompt(
-//     "you are not registered continue as guest enter your name"
-//   );
-//   if (activeUsers.includes(name)) {
-//     console.log("already connected");
-//     console.log(activeUsers);
-//     joinMessage("you joined the chat ");
-//     socket.emit("new-user", name);
-//   } else {
-//     activeUsers.push(name);
-//     socket.emit("new-user", name);
-//   }
-
-//   console.log(activeUsers);
-// }
 
 const uid = document.getElementById("uid");
 
@@ -69,39 +47,24 @@ socket.on("getMsgsDb", (data) => {
     });
   }
 });
-socket.on("active-users", (data) => {
-  if (data.length) {
-    data.forEach((data) => {
-      showActive(data.nameOnline);
-    });
-  }
-});
 
 socket.on("user-connected", (n) => {
   joinMessage(`${n} connected`);
+  showActive(n);
 });
 
 socket.on("user-disconnected", (n) => {
+  const activeNow = document.querySelectorAll(".active");
   leaveMessage(`${n} disconnected`);
+  activeNow.forEach((e) => {
+    if (e.innerText == n) {
+      e.remove();
+    }
+  });
 });
 
-// socket.on("active-users", (users) => {
-//   showActive(users);
-//   console.log(users);
-// });
-// socket.on("leaved-users", (n) => {
-//   const list = document.querySelectorAll("#users li");
-//   console.log(n);
-//   list.forEach((e) => {
-//     if (e.innerText == n) {
-//       e.remove;
-//     }
-//   });
-// });
-//receive messages throught socket handeling
-
 socket.on("chat-message", (m, n) => {
-  console.log(m + "   " + n);
+  // console.log(m + "   " + n);
   receiveMessage(m, n);
 });
 
@@ -119,7 +82,7 @@ function joinMessage(message) {
 //helper funcation when user leave the chat Message & append it on chat
 
 function leaveMessage(message) {
-  console.log(message);
+  // console.log(message);
   const messageElement = document.createElement("div");
   messageElement.setAttribute("class", "leave");
   messageElement.innerText = message;
@@ -153,7 +116,7 @@ function receiveMessage(m, n) {
   chat.append(messageElement);
   setTimeout(() => {
     const messages = document.querySelectorAll("#chat div");
-    console.log(messages[messages.length - 1]);
+    // console.log(messages[messages.length - 1]);
     const lastMessage = messages[messages.length - 1];
     const viewNew = lastMessage.offsetTop;
     chat.scroll({

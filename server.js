@@ -27,28 +27,18 @@ mongoose.connect(
 // Expose the node_modules folder as static resources (to access socket.io.js in the browser)
 app.use("/static", express.static("node_modules"));
 const users = {};
-const dataBase = {};
+
 io.on("connection", (socket) => {
   //new user joined the chat handling serverside
   dataMsgs.find().then((result) => {
     socket.emit("getMsgsDb", result);
   });
-  online.find().then((result) => {
-    socket.emit("active-users", result);
-  });
+
   socket.on("new-user", (n) => {
     users[socket.id] = n;
     socket.broadcast.emit("user-connected", n);
-    socket.broadcast.emit("active-users", n);
+    //
 
-    //send online user name to database
-
-    const active = new online({ nameOnline: n });
-    active.save(async function (err) {
-      if (err) return handleError(err);
-      // saved!
-    });
-    //from here
     var query = dataUsers
       .find({
         user_name: n,
@@ -83,15 +73,11 @@ io.on("connection", (socket) => {
     });
   });
 
-  //new user leaved the chat handling serverside
+  //user leaved the chat handling serverside
   socket.on("disconnect", () => {
     socket.broadcast.emit("user-disconnected", users[socket.id]);
     socket.broadcast.emit("leaved-users", users[socket.id]);
     delete users[socket.id];
-    online.deleteOne({ nameOnline: users[socket.id] }).then((result) => {
-      socket.emit("offline-users", result);
-      console.log(result);
-    });
   });
 
   //handling chat messages
