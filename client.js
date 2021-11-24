@@ -69,6 +69,13 @@ socket.on("getMsgsDb", (data) => {
     });
   }
 });
+socket.on("active-users", (data) => {
+  if (data.length) {
+    data.forEach((data) => {
+      showActive(data.nameOnline);
+    });
+  }
+});
 
 socket.on("user-connected", (n) => {
   joinMessage(`${n} connected`);
@@ -78,19 +85,19 @@ socket.on("user-disconnected", (n) => {
   leaveMessage(`${n} disconnected`);
 });
 
-socket.on("active-users", (users) => {
-  showActive(users);
-  console.log(users);
-});
-socket.on("leaved-users", (n) => {
-  const list = document.querySelectorAll("#users li");
-  console.log(n);
-  list.forEach((e) => {
-    if (e.innerText == n) {
-      e.remove;
-    }
-  });
-});
+// socket.on("active-users", (users) => {
+//   showActive(users);
+//   console.log(users);
+// });
+// socket.on("leaved-users", (n) => {
+//   const list = document.querySelectorAll("#users li");
+//   console.log(n);
+//   list.forEach((e) => {
+//     if (e.innerText == n) {
+//       e.remove;
+//     }
+//   });
+// });
 //receive messages throught socket handeling
 
 socket.on("chat-message", (m, n) => {

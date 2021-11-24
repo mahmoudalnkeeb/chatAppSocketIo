@@ -11,6 +11,8 @@ app.use(express.static("./"));
 //modules
 const dataUsers = require("./modules/users");
 const dataMsgs = require("./modules/msgs");
+// const dataaccount = require("./modules/accounts");
+const online = require("./modules/online");
 
 mongoose.connect(
   "mongodb+srv://7oda:14759631475963@cluster0.gvujt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -31,16 +33,22 @@ io.on("connection", (socket) => {
   dataMsgs.find().then((result) => {
     socket.emit("getMsgsDb", result);
   });
+  online.find().then((result) => {
+    socket.emit("active-users", result);
+  });
   socket.on("new-user", (n) => {
     users[socket.id] = n;
-    dataBase["name"] = n;
     socket.broadcast.emit("user-connected", n);
     socket.broadcast.emit("active-users", n);
-    //from here
-    console.log(n);
-    console.log(users);
-    console.log(dataBase);
 
+    //send online user name to database
+
+    const active = new online({ nameOnline: n });
+    active.save(async function (err) {
+      if (err) return handleError(err);
+      // saved!
+    });
+    //from here
     var query = dataUsers
       .find({
         user_name: n,
@@ -80,6 +88,10 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("user-disconnected", users[socket.id]);
     socket.broadcast.emit("leaved-users", users[socket.id]);
     delete users[socket.id];
+    online.deleteOne({ nameOnline: users[socket.id] }).then((result) => {
+      socket.emit("offline-users", result);
+      console.log(result);
+    });
   });
 
   //handling chat messages
