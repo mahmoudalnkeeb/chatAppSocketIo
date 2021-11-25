@@ -76,7 +76,6 @@ io.on("connection", (socket) => {
   //user leaved the chat handling serverside
   socket.on("disconnect", () => {
     socket.broadcast.emit("user-disconnected", users[socket.id]);
-    socket.broadcast.emit("leaved-users", users[socket.id]);
     delete users[socket.id];
   });
 
