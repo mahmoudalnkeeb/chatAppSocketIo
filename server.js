@@ -87,10 +87,12 @@ io.on("connection", (socket) => {
 
     // send msg to data bases
 
-    const msg = new dataMsgs({ msg: message, name: id });
-    msg.save(async function (err) {
-      if (err) return handleError(err);
-      // saved!
-    });
+    if (id !== "anonymous") {
+      const msg = new dataMsgs({ msg: message, name: id });
+      msg.save(async function (err) {
+        if (err) return handleError(err);
+        // saved!
+      });
+    }
   });
 });

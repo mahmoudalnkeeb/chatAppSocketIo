@@ -7,10 +7,17 @@ const chat = document.getElementById("chat");
 const usersList = document.getElementById("users");
 
 const uid = document.getElementById("uid");
-
 const user = prompt("enter you username");
-uid.innerText = user;
-socket.emit("new-user", user);
+
+if (user == "" || user == null) {
+  socket.emit("new-user", "anonymous");
+  uid.innerText = "anonymous";
+  uid.style.color = "red";
+} else {
+  socket.emit("new-user", user);
+  uid.innerText = user;
+  uid.style.color = "var(--sent--bg)";
+}
 
 //if user found in dataBases then alert to conect
 
@@ -112,8 +119,13 @@ function sendMessage(message) {
 function receiveMessage(m, n) {
   const messageElement = document.createElement("div");
   messageElement.setAttribute("class", "msg-row received");
-  messageElement.innerHTML = `<div class="msg-text"><h3 class="name-text" id="received">${n}</h2><p>${m}</p></div>`;
-  chat.append(messageElement);
+  if (n == "anonymous") {
+    messageElement.innerHTML = `<div class="msg-text"><h3 style="color:red" class="name-text" id="received">${n}</h2><p>${m}</p></div>`;
+    chat.append(messageElement);
+  } else {
+    messageElement.innerHTML = `<div class="msg-text"><h3 class="name-text" id="received">${n}</h2><p>${m}</p></div>`;
+    chat.append(messageElement);
+  }
   setTimeout(() => {
     const messages = document.querySelectorAll("#chat div");
     // console.log(messages[messages.length - 1]);
