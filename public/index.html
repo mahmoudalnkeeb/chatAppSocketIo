@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Gl chat - chat with others freely no limits"
+    />
+    <meta name="keywords" content="gl,chat,chating,gl-chat,gchat " />
+    <title>G_Chat</title>
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="./client.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="chatbox">
+        <div class="col-1">
+          <div class="user-title">
+            <h1 id="uid"></h1>
+          </div>
+          <div class="chating" id="chat"></div>
+
+          <div class="msgs-box">
+            <input
+              type="text"
+              id="message"
+              placeholder="type your message"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        <div class="col-2">
+          <h3>نشط الأن</h3>
+          <ul id="users"></ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

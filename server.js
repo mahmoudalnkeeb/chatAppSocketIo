@@ -5,8 +5,10 @@ var express = require("express");
 var app = express();
 var server = http.createServer(app);
 var io = require("socket.io")(server);
+const path = require("path");
 server.listen(port);
-app.use(express.static("./"));
+
+app.use(express.static(path.join(__dirname, "./public")));
 
 //modules
 const dataUsers = require("./modules/users");
@@ -30,6 +32,7 @@ const users = {};
 
 io.on("connection", (socket) => {
   //new user joined the chat handling serverside
+  console.log("connected");
   dataMsgs.find().then((result) => {
     socket.emit("getMsgsDb", result);
   });
