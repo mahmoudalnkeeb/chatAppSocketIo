@@ -11,6 +11,9 @@ const user = prompt("enter you username");
 
 if (user == "" || user == null) {
   socket.emit("new-user", "anonymous");
+  alert(
+    "الرسائل المرسله لن يتم حفظها فى قاعده البيانات اذا اردت ان يتم حفظ البيانات اعد ادخال اسم مناسب"
+  );
   uid.innerText = "anonymous";
   uid.style.color = "red";
 } else {
